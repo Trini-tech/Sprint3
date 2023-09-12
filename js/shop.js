@@ -101,9 +101,32 @@ function calculateTotal() {
 }
 
 // Exercise 4
-function generateCart() {
+function generateCart(cartList) {
   // Using the "cartlist" array that contains all the items in the shopping cart,
   // generate the "cart" array that does not contain repeated items, instead each item of this array "cart" shows the quantity of product.
+  for (let i = 0; i < cartList.length; i++) {
+    console.log("cart.length = ", cart.length);
+    console.log("i= ", i);
+    let found = false;
+    let j = 0;
+    for (j = 0; j < cart.length; j++) {
+      console.log("He entrat al bucle j");
+      console.log("cart.length = ", cart.length);
+      console.log("j= ", j);
+
+      if (cartList[i].id == cart[j].id) {
+        cart[j].quantity++;
+        found = true;
+      }
+    }
+
+    if (!found) {
+      cart[j] = cartList[i]; // Per què cartList també incorpora la propietat quantity????
+      cart[j].quantity = 1;
+      console.log("cart = ", cart);
+    }
+  }
+  return cart;
 }
 
 // Exercise 5
