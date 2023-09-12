@@ -135,16 +135,22 @@ function applyPromotionsCart(cart) {
   for (let i = 0; i < cart.length; i++) {
     if (cart[i].name == "Cooking oil" && cart[i].quantity >= 3) {
       cart[i].price = 10;
-      cart[i].subtotalWithDiscount = cart[i].price * cart[i].quantity;
+      cart[i].subtotalWithDiscount = Number(
+        cart[i].price * cart[i].quantity
+      ).toFixed(2);
     }
 
     if (cart[i].name == "Instant cupcake mixture" && cart[i].quantity >= 10) {
-      cart[i].price = (cart[i].price * (2 / 3)).toFixed(2);
+      cart[i].price = 3.33;
       console.log(cart[i].price);
-      cart[i].subtotalWithDiscount = cart[i].price * cart[i].quantity;
+      cart[i].subtotalWithDiscount = Number(
+        cart[i].price * cart[i].quantity
+      ).toFixed(2);
     }
-    cart[i].subtotalWithDiscount = cart[i].price * cart[i].quantity;
-    total += cart[i].subtotalWithDiscount;
+    cart[i].subtotalWithDiscount = Number(
+      cart[i].price * cart[i].quantity
+    ).toFixed(2);
+    total += Number(cart[i].subtotalWithDiscount);
   }
   return cart;
 }
@@ -152,6 +158,21 @@ function applyPromotionsCart(cart) {
 // Exercise 6
 function printCart() {
   // Fill the shopping cart modal manipulating the shopping cart dom
+  generateCart(cartList);
+  applyPromotionsCart(cart);
+  let cardItemContainer = document.getElementById("cart_list");
+  let totalContainer = document.getElementById("total_price");
+
+  for (let i = 0; i < cart.length; i++) {
+    cardItemContainer.innerHTML += `
+            <tr>
+                <th scope="row">${cart[i].name}</th>
+                <td>$${cart[i].price}</td>
+                <td>${cart[i].quantity}</td>
+                <td>$${cart[i].subtotalWithDiscount}</td>
+            </tr>`;
+  }
+  totalContainer.innerHTML = Number(total); //Si aplico la funció calculateTotal m'agafa el array cartList que resulta ser una còpia de cart (item + quantity) i dóna error.
 }
 
 // ** Nivell II **
