@@ -130,8 +130,23 @@ function generateCart(cartList) {
 }
 
 // Exercise 5
-function applyPromotionsCart() {
+function applyPromotionsCart(cart) {
   // Apply promotions to each item in the array "cart"
+  for (let i = 0; i < cart.length; i++) {
+    if (cart[i].name == "Cooking oil" && cart[i].quantity >= 3) {
+      cart[i].price = 10;
+      cart[i].subtotalWithDiscount = cart[i].price * cart[i].quantity;
+    }
+
+    if (cart[i].name == "Instant cupcake mixture" && cart[i].quantity >= 10) {
+      cart[i].price = (cart[i].price * (2 / 3)).toFixed(2);
+      console.log(cart[i].price);
+      cart[i].subtotalWithDiscount = cart[i].price * cart[i].quantity;
+    }
+    cart[i].subtotalWithDiscount = cart[i].price * cart[i].quantity;
+    total += cart[i].subtotalWithDiscount;
+  }
+  return cart;
 }
 
 // Exercise 6
