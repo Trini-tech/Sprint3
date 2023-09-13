@@ -81,8 +81,6 @@ function buy(id) {
       cartList.push(products[i]);
     }
   }
-  console.log("cartList= ", cartList);
-
   document.getElementById("count_product").innerHTML = cartList.length - 1;
 }
 
@@ -117,7 +115,7 @@ function generateCart(cartList) {
     }
 
     if (!found) {
-      cart[j] = { ...cartList[i] }; // Amb els tres punts "explosionem l'objecte" i amb els cortxetes el convertim amb un objecte de nou.
+      cart[j] = { ...cartList[i] }; // Amb els tres punts "explosionem l'objecte" i amb els cortxetes el convertim amb un objecte de nou. Així es pot clonar l'array/objecte i no referenciar (voldria dir que els dos serien equivalents)
       cart[j].quantity = 1;
     }
   }
@@ -177,27 +175,32 @@ function addToCart(id) {
   // Refactor previous code in order to simplify it
   // 1. Loop for to the array products to get the item to add to cart
   // 2. Add found product to the cart array or update its quantity in case it has been added previously.
-  for (let i = 0; i < products.length; i++) {
-    if (id == products[i].id) {
-      cartList.push(products[i]);
-    }
-  }
-  console.log("cartList= ", cartList);
-  for (let i = 0; i < cartList.length; i++) {
-    console.log("cart.length = ", cart.length);
-    console.log("i= ", i);
-    let found = false;
-    let j = 0;
-    for (j = 0; j < cart.length; j++) {
-      if (cartList[i].id == cart[j].id) {
-        cart[j].quantity++;
-        found = true;
-      }
-    }
+  let i = 0;
+  let j = 0;
 
-    if (!found) {
-      cart[j] = { ...cartList[i] };
-      cart[j].quantity = 1;
+  for (j = 0; j < products.length; j++) {
+    if (id == products[j].id) {
+      if (cart.length > 0) {
+        for (i = 0; i < cart.length; i++) {
+          if (id == cart[i].id) {
+            cart[i].quantity++;
+            break;
+          } else {
+            cart.push(products[j]);
+            cart[cart.length - 1].quantity = 1;
+            break;
+
+            /* 
+            Buenas prácticas:
+            let newProduct = { ...products[j] };
+            newProduct.quantity = 1;
+            cart.push(newProduct); */
+          }
+        }
+      } else {
+        cart.push(products[j]);
+        cart[cart.length - 1].quantity = 1;
+      }
     }
   }
   return cart;
