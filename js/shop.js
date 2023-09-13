@@ -179,7 +179,7 @@ function printCart() {
 
 // ** Nivell II **
 
-// Exercise 7
+// Exercise 8
 function addToCart(id) {
   // Refactor previous code in order to simplify it
   // 1. Loop for to the array products to get the item to add to cart
@@ -211,10 +211,20 @@ function addToCart(id) {
   return cart;
 }
 
-// Exercise 8
+// Exercise 9
 function removeFromCart(id) {
   // 1. Loop for to the array products to get the item to add to cart
   // 2. Add found product to the cartList array
+  for (let i = 0; i < cart.length; i++) {
+    if (id == cart[i].id) {
+      if (cart[i].quantity == 1) {
+        cart.splice(i, 1);
+      } else {
+        cart[i].quantity--;
+      }
+    }
+  }
+  return cart;
 }
 
 function open_modal() {
